@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Alert } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import { VStack, Heading, Icon, useTheme } from 'native-base';
 import { Envelope, Key } from 'phosphor-react-native';
 
@@ -8,13 +10,18 @@ import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 export function SingIn() {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { colors } = useTheme();
 
   function handSingIn() {
-    console.log(name, password);
+    if (!email || !password) {
+      return Alert.alert('Entrar', 'Informe e-mail e senha.');
+
+    }
+
+    // console.log(email, password);
   }
 
   return (
@@ -28,7 +35,7 @@ export function SingIn() {
         mb={4}
         placeholder="E-mail"
         InputLeftElement={<Icon as={<Envelope color={colors.gray[300]} />} ml={4} />}
-        onchangeText={setName}
+        onchangeText={setEmail}
       />
       <Input
         mb={6}
